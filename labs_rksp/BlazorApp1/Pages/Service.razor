@@ -1,0 +1,99 @@
+﻿@page "/service/{serviceId}"
+@using BlazorApp1.Services
+@inject NavigationManager _navigationManager
+
+<center>
+    <h2>Информация об услуге</h2>  
+</center>
+    
+<div class="container">
+<header class="d-flex flex-wrap justify-content-center py-1">
+    @if (CurrentService == null)
+    {
+        <PageTitle>Загрузка...</PageTitle>
+        <p>Загрузка информации о товаре...</p>
+    }
+    else
+    {
+        @if (CurrentService.Id == 2)
+        {
+            <PageTitle>@CurrentService.Name</PageTitle>
+            <center>
+                <h1><font size="5">Мы можем выполнить ремонт любой сложности, однако вот список основных услуг:</font></h1>
+            </center>
+            <ul class="list-group list-group-flush">
+               
+                <li class="list-group-item">Укоротить низ потайным швом</li>
+                <li class="list-group-item">Замена молнии</li>
+                <li class="list-group-item">Ушить предмет гардероба в вытачках</li>
+                <li class="list-group-item">Зашить дырку на любом предмете гардероба</li>
+                <li class="list-group-item">Ушить предмет по боковым швам</li>
+            </ul>
+        }
+        @if (CurrentService.Id == 1)
+        {
+            <PageTitle>@CurrentService.Name</PageTitle>
+            <h1><font size="5">Минимальная сумма заказа - 5000р</font></h1>
+        
+            
+                <h1><font size="5">Стоимость пошива рассчитывается индивидуально, в зависимости от выбранной вами модели, однако ниже вы можете ознакомиться со стоимостью основных позиций:</font></h1>
+            
+            <ul class="list-group list-group-flush">
+               
+                <li class="list-group-item">Пошив платья ( от 8000р.)</li>
+                <li class="list-group-item">Пошив блузки (от 6000р.)</li>
+                <li class="list-group-item">Пошив юбки (от 5000р.)</li>
+                <li class="list-group-item">Пошив брюк ( от 6000р.)</li>
+                <li class="list-group-item">Пошив пиджака ( от 7000р.)</li>
+            </ul>                        
+                                                                       
+        }
+       
+
+    } 
+    <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-1">
+                <nav class="navbar navbar-light bg-light">
+                    <form class="form-inline">          
+                        <button @onclick="@(() => toService())" type="button" class="btn btn-outline-primary">Услуги</button>
+                    </form>
+                </nav>
+            </header>
+        </div>
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-2 my-2 border-top">
+            <p class="col-md-4 mb-0 text-muted">&copy; Все права защищены 2022</p>
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item">
+                    <a href="\contacts" class="nav-link px-2 text-muted">Контакты</a>
+                </li>
+            </ul>
+        </footer>
+    </div>
+</header>
+</div>
+@code {
+    [Parameter]
+    public string ServiceId { get; set; } = null!;
+
+    private Data.Models.Service? CurrentService { get; set; }
+
+    [Inject]
+    private ISProvider servicesProvider { get; set; } = null!;
+
+    protected async override Task OnInitializedAsync()
+    {
+        CurrentService = await servicesProvider.GetOne(Int32.Parse(ServiceId));
+    }
+
+    private void toService()
+    {
+        _navigationManager.NavigateTo($"service");
+    }
+
+    private void toMain_page()
+    {
+        _navigationManager.NavigateTo($"/");
+    }
+}
+

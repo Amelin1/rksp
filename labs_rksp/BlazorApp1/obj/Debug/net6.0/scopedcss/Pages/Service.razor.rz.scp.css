@@ -1,0 +1,33 @@
+body[b-jo25qzndgq] {
+}
+.field[b-jo25qzndgq] {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.productBlock[b-jo25qzndgq] {
+    display: flex;
+    flex-direction: column;
+}
+
+.label[b-jo25qzndgq] {
+    width: 200px;
+}
+
+.valueField[b-jo25qzndgq] {
+    width: 400px;
+}
+
+.saleProducts[b-jo25qzndgq] {
+    display: flex;
+    flex-direction: column;
+}
+
+.productTag[b-jo25qzndgq] {
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #706c79;
+    border-radius: 8px;
+    background-color: rgb(136, 184, 220);
+}
